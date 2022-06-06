@@ -55,14 +55,14 @@ export default function App() {
     getAlbums()
   }, [])
 
-  useEffect(() => {
-    setTimeout(() => {
-      mapPhotoToUser(photos, albums, users)
-      //console.log(data)
-    }, 3000)
-  }, [])
   return (
     <div className='App'>
+      <button
+        onClick={() => mapPhotoToUser(photos, albums, users)}
+        style={{ width: '100%', height: 50, backgroundColor: 'gold' }}
+      >
+        Click to Load Album
+      </button>
       {/* photo, album id, userId, username  */}
 
       {/* <button onClick={() => mapPhotoToUser(photos, albums, users)}>
@@ -71,9 +71,12 @@ export default function App() {
 
       <table>
         <tbody>
-          <th>ID</th>
-          <th>Username</th>
-          <th>Photo</th>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Photos</th>
+          </tr>
+
           {data.map((record, index) => (
             <tr key={index}>
               <td>{record.userid}</td>
