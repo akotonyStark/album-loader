@@ -34,8 +34,8 @@ export default function App() {
       //console.log(albumsForUsers);
     })
 
+    let temp = []
     mappedAlbums.forEach((item) => {
-      let temp = []
       item.map((userData) => {
         let data = {
           username: users.find((user) => user.id === userData.userId).username,
@@ -43,7 +43,6 @@ export default function App() {
           photos: photos.filter((photo) => photo.albumId === userData.id),
         }
         temp.push(data)
-        return temp
       })
       console.log(temp)
       setData(temp)
@@ -56,25 +55,34 @@ export default function App() {
     getAlbums()
   }, [])
 
+  useEffect(() => {
+    setTimeout(() => {
+      mapPhotoToUser(photos, albums, users)
+      //console.log(data)
+    }, 3000)
+  }, [])
   return (
     <div className='App'>
       {/* photo, album id, userId, username  */}
 
-      <button onClick={() => mapPhotoToUser(photos, albums, users)}>
+      {/* <button onClick={() => mapPhotoToUser(photos, albums, users)}>
         Test Filter
-      </button>
+      </button> */}
 
       <table>
         <tbody>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Photo</th>
           {data.map((record, index) => (
             <tr key={index}>
               <td>{record.userid}</td>
+              <td>{record.username}</td>
               {record.photos.map((x) => (
                 <td>
                   <img src={x.thumbnailUrl} alt='somephoto' />
                 </td>
               ))}
-              <td>{record.username}</td>
             </tr>
           ))}
         </tbody>
